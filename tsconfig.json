@@ -1,0 +1,50 @@
+{
+  "ts-node": {
+    "require": ["tsconfig-paths/register"]
+  },
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "lib": ["ES6"],
+    "target": "es2015",
+
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitAny": true,
+    "noPropertyAccessFromIndexSignature": false,
+    "noUnusedLocals": true,
+    "strict": true,
+    "strictFunctionTypes": true,
+    "strictNullChecks": true,
+    "useUnknownInCatchVariables": false,
+
+    "skipLibCheck": true,
+
+    "esModuleInterop": true,
+    "isolatedModules": true,
+    "forceConsistentCasingInFileNames": true,
+
+    "outDir": "./dist",
+    "noEmit": true,
+    "sourceMap": true,
+
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "allowImportingTsExtensions": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "@constants": ["src/constants/index.ts"],
+      "@data": ["src/data/index.ts"],
+      "@helpers": ["src/helpers/index.ts"],
+      "@libraries": ["src/libraries/index.ts"],
+      "@middlewares": ["src/middlewares/index.ts"],
+      "@controllers": ["src/controllers/index.ts"],
+      "@services": ["src/services/index.ts"],
+      "@types": ["src/types/index.d.ts"],
+      "@utilities": ["src/utilities/index.ts"]
+    }
+  },
+  "include": ["src/**/*.ts", "configs/**/*.ts"]
+}

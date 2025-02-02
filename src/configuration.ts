@@ -46,6 +46,7 @@ export default function configureServer(server: Express) {
         maxAge: TIME.COOKIE_MAX_AGE,
         httpOnly: true,
         secure: process.env.NODE_ENV === 'development' ? false : true,
+        sameSite: process.env.NODE_ENV === 'development' ? 'lax' : 'none',
       },
     } as session.SessionOptions),
   );

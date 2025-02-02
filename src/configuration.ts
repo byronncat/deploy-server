@@ -38,6 +38,7 @@ export default function configureServer(server: Express) {
   server.use(bodyParser.json());
 
   // Session
+  server.set('trust proxy', 1); // Add this for HTTPS proxying
   server.use(
     session({
       name: 'session_id',
@@ -45,6 +46,7 @@ export default function configureServer(server: Express) {
       secret: process.env.TOKEN_SECRET || 'secret',
       resave: false,
       saveUninitialized: false,
+      proxy: true,
       cookie: {
         maxAge: TIME.COOKIE_MAX_AGE,
         httpOnly: true,

@@ -1,3 +1,4 @@
+import webpack from 'webpack';
 import path from 'path';
 import dotenv from 'dotenv';
 import { fileURLToPath } from 'url';
@@ -5,7 +6,10 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
   
-dotenv.config();
+dotenv.config({
+  path: path.resolve(__dirname, '../.env'),
+});
+
 const root = path.resolve(__dirname, '..');
   
 const config = {
@@ -14,18 +18,6 @@ const config = {
   resolve: {
     extensions: ['.ts', '.js', '.html'],
     alias: {
-      // "paths": {
-      //   "@/*": ["src/*"],
-      //   "@constants": ["src/constants/index.ts"],
-      //   "@data": ["src/data/index.ts"],
-      //   "@helpers": ["src/helpers/index.ts"],
-      //   "@libraries": ["src/libraries/index.ts"],
-      //   "@middlewares": ["src/middlewares/index.ts"],
-      //   "@controllers": ["src/controllers/index.ts"],
-      //   "@services": ["src/services/index.ts"],
-      //   "@types": ["src/types/index.d.ts"],
-      //   "@utilities": ["src/utilities/index.ts"]
-      // }
       '@': path.resolve(root, 'src'),
       '@constants': path.resolve(root, 'src/constants/index.ts'),
       '@data': path.resolve(root, 'src/data/index.ts'),
@@ -38,6 +30,11 @@ const config = {
       '@utilities': path.resolve(root, 'src/utilities/index.ts'),
     },
   },
+  plugins: [
+    new webpack.DefinePlugin({
+      'process.env': JSON.stringify(process.env)
+    })
+  ],
   externals: [
     'bcrypt',
     /^[a-z][a-z\/\.\-0-9]*$/i

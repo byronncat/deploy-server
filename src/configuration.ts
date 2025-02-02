@@ -23,7 +23,10 @@ const redisStore = new RedisStore({
 });
 
 export default function configureServer(server: Express) {
-  server.use(cors());
+  server.use(cors({
+    origin: process.env.CLIENT_URL,
+    credentials: true,
+  }));
   server.use(logger('dev'));
   server.use(express.json());
   server.use(express.urlencoded({ extended: false }));

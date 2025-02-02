@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start": "npm run build && node ./dist/bundle.js",
+    "start": "node ./dist/bundle.js",
     "dev": "nodemon --config ./configs/nodemon.json ./src/index.ts",
     "ts-node": "npx ts-node ./src/index.ts",
     "build": "npx webpack --config ./configs/webpack.config.mjs",

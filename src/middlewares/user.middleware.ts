@@ -1,8 +1,8 @@
-import { jwt } from '@libraries';
-import { STATUS_CODE } from '@constants';
+import { jwt } from '../libraries';
+import { STATUS_CODE } from '../constants';
 
 import type { Request, Response } from 'express';
-import type { UserToken } from '@types';
+import type { UserToken } from '../types';
 
 export function authenticate(req: Request, res: Response, next: Function) {
   if (req.cookies.user) {

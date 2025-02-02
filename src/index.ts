@@ -1,10 +1,7 @@
 import serverConfiguration from './server';
 import debug from 'debug';
-import { logger } from '@utilities';
+import { logger } from './utilities';
 debug('ts-express:server');
-
-import dotenv from 'dotenv';
-dotenv.config();
 
 // Set port
 type Port = string | number | false;
@@ -12,7 +9,7 @@ const port: Port = normalizePort(process.env.PORT || '3000');
 serverConfiguration.set('port', port);
 
 // Create server
-import http = require('http');
+import * as http from 'http';
 const server = http.createServer(serverConfiguration);
 server.listen(port, () => {
   logger.info(`Server is running on port ${port}`, 'Server');

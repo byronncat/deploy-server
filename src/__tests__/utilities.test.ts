@@ -3,7 +3,7 @@ import {
   escapeRegExp,
   generateRandomString,
   isEmptyObject,
-} from '@utilities';
+} from '../utilities';
 
 describe('logger', () => {
   it('should log a message', () => {

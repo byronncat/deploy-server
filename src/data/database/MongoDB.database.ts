@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { logger } from '@utilities';
+import { logger } from '../../utilities';
 
 (async () =>
   await mongoose

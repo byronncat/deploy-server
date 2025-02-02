@@ -1,5 +1,5 @@
 import express from 'express';
-import { postController } from '@controllers';
+import { postController } from '../controllers';
 const router = express.Router();
 
 router.get('/comment/:postId', postController.getComments);

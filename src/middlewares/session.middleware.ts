@@ -1,17 +1,17 @@
 import { signedCookie } from 'cookie-parser';
-import { jwt } from '@libraries';
-import { logger } from '@utilities';
-import { SessionStorage } from '@data';
+import { jwt } from '../libraries';
+import { logger } from '../utilities';
+import { SessionStorage } from '../data';
 import {
   TIME,
   AUTHENTICATE_STATE,
   STATUS_CODE,
   SERVER_ERROR,
   LOGOUT_RESULT,
-} from '@constants';
+} from '../constants';
 
 import type { Request, Response } from 'express';
-import type { UserToken } from '@types';
+import type { UserToken } from '../types';
 
 export function save(req: Request, res: Response) {
   const user = res.locals.user as UserToken;

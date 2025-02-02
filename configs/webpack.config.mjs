@@ -5,13 +5,13 @@ import { fileURLToPath } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-  
+
 dotenv.config({
   path: path.resolve(__dirname, '../.env'),
 });
 
 const root = path.resolve(__dirname, '..');
-  
+
 const config = {
   target: 'node',
   entry: path.resolve(root, 'src/index.ts'),
@@ -32,18 +32,14 @@ const config = {
   },
   plugins: [
     new webpack.DefinePlugin({
-      'process.env': JSON.stringify(process.env)
-    })
-  ],
-  externals: [
-    'bcrypt',
-    /^[a-z][a-z\/\.\-0-9]*$/i
+      'process.env': JSON.stringify(process.env),
+    }),
   ],
   module: {
     rules: [
       {
         test: /\.tsx?$/,
-        use: 'ts-loader',
+        use: ['babel-loader', 'ts-loader'],
         exclude: /node_modules/,
       },
     ],
@@ -57,9 +53,7 @@ const config = {
     __filename: false,
   },
   devtool: 'inline-source-map',
-  mode:
-    process.env.NODE_ENV ||
-    'development',
+  mode: process.env.NODE_ENV || 'development',
 };
 
-  export default config;
+export default config;

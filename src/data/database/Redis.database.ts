@@ -1,5 +1,5 @@
 import { createClient } from 'redis';
-import { logger } from '@utilities';
+import { logger } from '../../utilities';
 
 const client = createClient({
   url: process.env.REDIS_URI,

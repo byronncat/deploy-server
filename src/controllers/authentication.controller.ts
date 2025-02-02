@@ -1,12 +1,12 @@
-import { sessionManager } from '@middlewares';
-import { userService } from '@services';
-import { logger } from '@utilities';
+import { sessionManager } from '../middlewares';
+import { userService } from '../services';
+import { logger } from '../utilities';
 import {
   LOGIN_RESULT,
   REGISTER_RESULT,
   SERVER_ERROR,
   STATUS_CODE,
-} from '@constants';
+} from '../constants';
 
 import type { NextFunction, Request, Response } from 'express';
 import type { User, UserToken } from '@types';

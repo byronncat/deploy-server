@@ -1,6 +1,6 @@
-import { Cloudinary } from '@data';
-import { CloudinaryUploadResponse, CloudinaryDestroyResponse } from '@types';
-import { User } from '@types';
+import { Cloudinary } from '../data';
+import { CloudinaryUploadResponse, CloudinaryDestroyResponse } from '../types';
+import { User } from '../types';
 
 async function addImage(file: Express.Multer.File, uid: User['id']) {
   const dataURL = getDataURL(file);

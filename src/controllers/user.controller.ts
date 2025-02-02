@@ -1,10 +1,10 @@
-import { userService } from '@services';
-import { SERVER_ERROR, STATUS_CODE, USER_RESULT } from '@constants';
-import { logger } from '@utilities';
+import { userService } from '../services';
+import { SERVER_ERROR, STATUS_CODE, USER_RESULT } from '../constants';
+import { logger } from '../utilities';
 
 import type { Request, Response } from 'express';
-import { user } from '@/middlewares';
-import { User } from '@/types';
+import { user } from '../middlewares';
+import { User } from '../types';
 
 async function getProfile(req: Request, res: Response) {
   const username = req.params.username;

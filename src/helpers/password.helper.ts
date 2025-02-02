@@ -1,5 +1,5 @@
 import bcrypt from 'bcrypt';
-import { escapeRegExp } from '@utilities';
+import { escapeRegExp } from '../utilities';
 
 async function hash(password: string): Promise<string> {
   password = escapeRegExp(password);

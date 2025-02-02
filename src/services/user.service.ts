@@ -1,13 +1,13 @@
-import { passwordHelper } from '@helpers';
-import { isEmptyObject } from '@utilities';
-import { LOGIN_RESULT, REGISTER_RESULT } from '@constants';
-import { UserDB, QueryCondition } from '@data';
+import { passwordHelper } from '../helpers';
+import { isEmptyObject } from '../utilities';
+import { LOGIN_RESULT, REGISTER_RESULT } from '../constants';
+import { UserDB, QueryCondition } from '../data';
 import type {
   User,
   // GetProfileData,
   SearchProfileData,
   UserToken,
-} from '@types';
+} from '../types';
 import fileService from './file.service';
 
 async function login(

@@ -1,8 +1,8 @@
-import { postService } from '@services';
-import { user } from '@middlewares';
-import { jwt } from '@libraries';
-import { logger } from '@utilities';
-import { POST_RESULT, SERVER_ERROR, STATUS_CODE } from '@constants';
+import { postService } from '../services';
+import { user } from '../middlewares';
+import { jwt } from '../libraries';
+import { logger } from '../utilities';
+import { POST_RESULT, SERVER_ERROR, STATUS_CODE } from '../constants';
 
 import type { Request, Response } from 'express';
 import type {
@@ -11,7 +11,7 @@ import type {
   PostUploadData,
   UserToken,
 } from '@types';
-import { PostsType } from '@/services/post.service';
+import { PostsType } from '../services/post.service';
 
 async function getPosts(req: Request, res: Response) {
   if (req.cookies.user) {

@@ -1,5 +1,5 @@
-import { passwordHelper } from '@helpers';
-import { logger } from '@utilities';
+import { passwordHelper } from '../../helpers';
+import { logger } from '../../utilities';
 import { UserModel, PostModel } from '../models';
 import {
   DEFAULT_OPTIONS,

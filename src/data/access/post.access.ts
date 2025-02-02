@@ -1,11 +1,11 @@
-import { logger } from '@utilities';
+import { logger } from '../../utilities';
 import { PostModel, UserModel } from '../models';
 import {
   DEFAULT_OPTIONS,
   QueryCondition,
   mapObjectToQuery,
 } from './access.helper';
-import type { Comment, Post, PostUploadData } from '@types';
+import type { Comment, Post, PostUploadData } from '../../types';
 
 export async function getPost(
   data: Partial<Post>,

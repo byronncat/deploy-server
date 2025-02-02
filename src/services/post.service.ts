@@ -1,5 +1,5 @@
-import { fileService } from '@services';
-import { PostDB, UserDB, QueryCondition } from '@data';
+import { fileService } from '../services';
+import { PostDB, UserDB, QueryCondition } from '../data';
 import type {
   User,
   PostUploadData,
@@ -7,7 +7,7 @@ import type {
   PostDisplayData,
   Comment,
   CommentDisplayData,
-} from '@types';
+} from '../types';
 
 enum PageLimit {
   Vertical = 7,

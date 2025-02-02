@@ -18,6 +18,8 @@ export function save(req: Request, res: Response) {
   req.session.user = { id: user!.id };
   res.cookie('user', jwt.generateToken(user!), {
     maxAge: TIME.COOKIE_MAX_AGE,
+    secure: process.env.NODE_ENV === 'development' ? false : true,
+    sameSite: process.env.NODE_ENV === 'development' ? 'lax' : 'none',
   });
 }
 

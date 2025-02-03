@@ -21,6 +21,15 @@ async function addImage(file: Express.Multer.File, uid: User['id']) {
 
 async function deleteImage(imgURL: string): Promise<boolean> {
   const publicId = getPublicId(imgURL);
+  if (imgURL.includes('video')) {
+    return await Cloudinary.destroy(publicId, { resource_type: 'video' })
+      .then((result: CloudinaryDestroyResponse) => {
+        if (result.result === 'ok') return true;
+        return Promise.reject('Failed to delete video');
+      })
+      .catch((error: any) => Promise.reject(error));
+  }
+
   return await Cloudinary.destroy(publicId)
     .then((result: CloudinaryDestroyResponse) => {
       if (result.result === 'ok') return true;

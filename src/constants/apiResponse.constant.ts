@@ -53,6 +53,7 @@ export enum USER_RESULT {
   FAILED_AVATAR_CHANGE = 'Failed to change avatar',
   AVATAR_REMOVED = 'Avatar removed',
   FAILED_REMOVE_AVATAR = 'Failed to remove avatar',
+  MISSING_PROFILE_UID = 'Missing profile uid',
 }
 
 export enum SERVER_ERROR {

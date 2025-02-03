@@ -1,5 +1,4 @@
 import { signedCookie } from 'cookie-parser';
-import { jwt } from '../libraries';
 import { logger } from '../utilities';
 import { SessionStorage } from '../data';
 import {
@@ -15,8 +14,8 @@ import type { UserToken } from '../types';
 
 export function save(req: Request, res: Response) {
   const user = res.locals.user as UserToken;
-  req.session.user = { id: user!.id };
-  res.cookie('user', jwt.generateToken(user!), {
+  req.session.user = { id: user.id };
+  res.cookie('user', user, {
     maxAge: TIME.COOKIE_MAX_AGE,
     secure: process.env.NODE_ENV === 'development' ? false : true,
     sameSite: process.env.NODE_ENV === 'development' ? 'lax' : 'none',
@@ -25,35 +24,31 @@ export function save(req: Request, res: Response) {
 
 export async function destroy(req: Request, res: Response) {
   try {
-    const sessionCookie = req.cookies.session_id;
-    const sessionId = signedCookie(
-      sessionCookie,
-      process.env.TOKEN_SECRET || 'secret',
-    );
+    const session = req.session.user;
 
-    if (!sessionId) {
+    if (!session) {
       return res.status(STATUS_CODE.BAD_REQUEST).json({
         success: false,
         message: LOGOUT_RESULT.NO_SESSION,
       });
     }
 
-    const removedSessions = await SessionStorage.remove(sessionId);
-    if (removedSessions > 0) {
-      res.clearCookie('session_id');
-      res.clearCookie('user');
+    req.session.destroy((error) => {
+      if (error) {
+        logger.error(error, 'Session middleware - destroy');
+        return res.status(STATUS_CODE.INTERNAL_SERVER_ERROR).json({
+          success: false,
+          message: SERVER_ERROR.INTERNAL,
+        });
+      }
+    });
+    res.clearCookie('user');
+    res.clearCookie('session_id');
 
-      return res.status(STATUS_CODE.OK).json({
-        success: true,
-        message: LOGOUT_RESULT.SUCCESS,
-      });
-    } else {
-      logger.error('Session not found', 'Session middleware - destroy');
-      return res.status(STATUS_CODE.NOT_FOUND).json({
-        success: false,
-        message: LOGOUT_RESULT.NO_SESSION,
-      });
-    }
+    return res.status(STATUS_CODE.OK).json({
+      success: true,
+      message: LOGOUT_RESULT.SUCCESS,
+    });
   } catch (error) {
     logger.error(error, 'Session middleware - destroy');
     return res.status(STATUS_CODE.INTERNAL_SERVER_ERROR).json({
@@ -69,6 +64,7 @@ export async function authenticate(req: Request, res: Response) {
     response: {
       success: false,
       message: AUTHENTICATE_STATE.UNAUTHORIZED,
+      data: undefined,
     },
   };
 
@@ -85,6 +81,7 @@ export async function authenticate(req: Request, res: Response) {
         response: {
           success: true,
           message: AUTHENTICATE_STATE.AUTHORIZED,
+          data: req.cookies.user,
         },
       };
   } catch (error) {

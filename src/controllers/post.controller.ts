@@ -1,6 +1,5 @@
 import { postService } from '../services';
 import { user } from '../middlewares';
-import { jwt } from '../libraries';
 import { logger } from '../utilities';
 import { POST_RESULT, SERVER_ERROR, STATUS_CODE } from '../constants';
 
@@ -15,7 +14,7 @@ import { PostsType } from '../services/post.service';
 
 async function getPosts(req: Request, res: Response) {
   if (req.cookies.user) {
-    res.locals.user = jwt.parseToken(req.cookies.user) as UserToken;
+    res.locals.user = req.cookies.user as UserToken;
   }
   const page = req.query.page as unknown as number;
   const type = req.query.type as PostsType;

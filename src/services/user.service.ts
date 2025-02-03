@@ -4,7 +4,6 @@ import { LOGIN_RESULT, REGISTER_RESULT } from '../constants';
 import { UserDB, QueryCondition } from '../data';
 import type {
   User,
-  // GetProfileData,
   SearchProfileData,
   UserToken,
 } from '../types';
@@ -123,72 +122,14 @@ async function removeAvatar(uid: User['id']) {
   return Promise.reject('Image deletion failed');
 }
 
-// async function removeAvatar(uid: Account['id']) {
-//   const profile = (await ProfileModel.findOne({ uid }, 'avatar').catch(
-//     (error: any) => {
-//       return Promise.reject(error);
-//     },
-//   )) as ProfileDocument;
-//   if (!profile) return Promise.reject('Profile not found');
-//   if (isEmptyObject(profile.avatar)) return Promise.reject('No avatar found');
-//   const success = await fileService.deleteImage(profile.avatar!.dataURL!);
-//   if (success) {
-//     await ProfileModel.updateOne({ uid }, { $unset: { avatar: '' } });
-//     return true;
-//   }
-//   return Promise.reject('Image deletion failed');
-// }
-
-// async function getUsernameByID(id: Account['id']): Promise<string> {
-//   try {
-//     const profile = (await ProfileModel.findOne({
-//       uid: id,
-//     }).exec()) as Profile | null;
-//     if (!profile) return Promise.reject('Profile not found');
-//     if (!profile.username) return Promise.reject('Username not found');
-//     return profile.username;
-//   } catch (error) {
-//     return Promise.reject(error);
-//   }
-// }
-
-// async function getByID(id: Account['id']): Promise<Account> {
-//   try {
-//     const result = await PostgreSQL.oneOrNone(
-//       `SELECT * FROM accounts WHERE id = $(id)`,
-//       {
-//         id,
-//       },
-//     );
-//     if (!result) return Promise.reject('Account not found');
-//     return result;
-//   } catch (error) {
-//     logger.error(`${error}`, 'Account service');
-//     return Promise.reject(error);
-//   }
-// }
-
-// async function getFollowingsByID(id: Account['id']) {
-//   try {
-//     const profile = (await ProfileModel.findOne({
-//       uid: id,
-//     }).exec()) as ProfileDocument | null;
-//     if (!profile) return Promise.reject('Profile not found');
-//     return profile.followings;
-//   } catch (error) {
-//     logger.error(`${error}`, 'Account service');
-//     return Promise.reject(error);
-//   }
-// }
-
-async function followProfile(uid: User['id'], profileId: User['id']) {
-  await UserDB.addFollowing(uid, profileId);
-  await UserDB.addFollower(profileId, uid);
+async function followProfile(uid: User['id'], profileUserId: User['id']) {
+  await UserDB.addFollowing(uid, profileUserId);
+  await UserDB.addFollower(profileUserId, uid);
 }
 
-async function unfollowProfile(uid: User['id'], profileId: User['id']) {
-  await UserDB.removeFollowing(uid, profileId);
-  await UserDB.removeFollower(profileId, uid);
+async function unfollowProfile(uid: User['id'], profileUserId: User['id']) {
+  await UserDB.removeFollowing(uid, profileUserId);
+  await UserDB.removeFollower(profileUserId, uid);
 }
 
 export default {
@@ -200,7 +141,4 @@ export default {
   unfollowProfile,
   changeAvatar,
   removeAvatar,
-  // getByID,
-  // getUsernameByID,
-  // getFollowingsByID,
 };

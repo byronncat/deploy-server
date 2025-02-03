@@ -71,6 +71,13 @@ async function searchProfile(req: Request, res: Response) {
 async function followProfile(req: Request, res: Response) {
   const profileUid = req.body.uid;
   const uid = res.locals.user.id;
+  if (typeof profileUid === 'undefined') {
+    return res.status(STATUS_CODE.BAD_REQUEST).json({
+      success: false,
+      message: USER_RESULT.MISSING_PROFILE_UID,
+    });
+  }
+
   try {
     return await userService
       .followProfile(uid, profileUid)
@@ -99,6 +106,13 @@ async function followProfile(req: Request, res: Response) {
 async function unfollowProfile(req: Request, res: Response) {
   const profileUid = req.body.uid;
   const uid = res.locals.user.id;
+  if (typeof profileUid === 'undefined') {
+    return res.status(STATUS_CODE.BAD_REQUEST).json({
+      success: false,
+      message: USER_RESULT.MISSING_PROFILE_UID,
+    });
+  }
+  
   try {
     return await userService
       .unfollowProfile(uid, profileUid)

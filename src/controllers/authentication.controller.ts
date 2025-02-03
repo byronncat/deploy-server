@@ -38,6 +38,7 @@ async function logIn(req: Request, res: Response, next: NextFunction) {
         return res.status(STATUS_CODE.OK).json({
           success: true,
           message: LOGIN_RESULT.SUCCESS,
+          data: res.locals.user,
         });
       default:
         throw new Error('Invalid login result');
@@ -80,6 +81,7 @@ async function register(req: Request, res: Response, next: NextFunction) {
         return res.status(STATUS_CODE.OK).json({
           success: true,
           message: REGISTER_RESULT.SUCCESS,
+          data: res.locals.user,
         });
       default:
         throw new Error('Invalid register result');
